@@ -433,6 +433,7 @@ func (consensus *Consensus) RemovePeers(peers []p2p.Peer) int {
 		buffer := pong.ConstructPongMessage()
 
 		if utils.UseLibP2P {
+			utils.GetLogInstance().Debug("[LEO] RemovePeers", "size of buffer", len(buffer))
 			consensus.host.SendMessageToGroups([]p2p.GroupID{p2p.GroupIDBeacon}, buffer)
 		} else {
 			host.BroadcastMessageFromLeader(consensus.host, validators, buffer, consensus.OfflinePeers)

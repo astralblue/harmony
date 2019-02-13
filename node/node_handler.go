@@ -60,7 +60,7 @@ func (node *Node) ReceiveGroupMessage() {
 		}
 		msg, sender, err := node.groupReceiver.Receive(ctx)
 		if sender != node.host.GetID() {
-			//			utils.GetLogInstance().Info("[PUBSUB]", "received group msg", len(msg), "sender", sender)
+			utils.GetLogInstance().Info("[PUBSUB]", "received group msg", len(msg), "sender", sender)
 			if err == nil {
 				// skip the first 5 bytes, 1 byte is p2p type, 4 bytes are message size
 				node.messageHandler(msg[5:], string(sender))
@@ -71,7 +71,7 @@ func (node *Node) ReceiveGroupMessage() {
 
 // messageHandler parses the message and dispatch the actions
 func (node *Node) messageHandler(content []byte, sender string) {
-	node.MaybeBroadcastAsValidator(content)
+	//	node.MaybeBroadcastAsValidator(content)
 
 	consensusObj := node.Consensus
 
@@ -375,6 +375,8 @@ func (node *Node) SendPongMessage() {
 						utils.GetLogInstance().Info("[PONG] sent pong message to", "group", p2p.GroupIDBeacon)
 					}
 					sentMessage = true
+					// stop sending ping message
+					node.serviceManager.TakeAction(&service.Action{Action: service.Stop, ServiceType: service.PeerDiscovery})
 				}
 			}
 			numPeers = numPeersNow
