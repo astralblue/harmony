@@ -197,6 +197,7 @@ func main() {
 			// Attack determination.
 			attack.GetInstance().SetAttackEnabled(attackDetermination(*attackedMode))
 		}
+		utils.UseLibP2P = false
 	} else {
 		if *isLeader {
 			role = "leader"
@@ -204,6 +205,7 @@ func main() {
 		} else {
 			role = "validator"
 		}
+		utils.UseLibP2P = true
 	}
 	// Init logging.
 	loggingInit(*logFolder, role, *ip, *port, *onlyLogTps)
@@ -279,7 +281,6 @@ func main() {
 		if consensus.IsLeader {
 			go currentNode.SendPongMessage()
 		}
-		currentNode.UseLibP2P = true
 	}
 
 	go currentNode.SupportSyncing()
