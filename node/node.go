@@ -729,7 +729,7 @@ func (node *Node) setupForNewNode() {
 	}
 
 	// Register staking service.
-	node.serviceManager.RegisterService(service_manager.Staking, staking.New(node.AccountKey, 0, stakingPeer, nil))
+	node.serviceManager.RegisterService(service_manager.Staking, staking.New(node.host, node.AccountKey, 0, stakingPeer, nil))
 	// Register peer discovery service. "0" is the beacon shard ID
 	node.serviceManager.RegisterService(service_manager.PeerDiscovery, discovery.New(node.host, "0", chanPeer, stakingPeer))
 	// Register networkinfo service. "0" is the beacon shard ID
