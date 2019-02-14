@@ -184,7 +184,6 @@ func (consensus *Consensus) processCommittedMessage(message *msg_pb.Message) {
 	utils.GetLogInstance().Warn("Received Committed Message", "nodeID", consensus.nodeID)
 
 	consensusMsg := message.GetConsensus()
-
 	consensusID := consensusMsg.ConsensusId
 	leaderID := consensusMsg.SenderId
 	messagePayload := consensusMsg.Payload

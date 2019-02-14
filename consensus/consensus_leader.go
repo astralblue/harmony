@@ -125,7 +125,6 @@ func (consensus *Consensus) processPrepareMessage(message *msg_pb.Message) {
 	defer consensus.mutex.Unlock()
 
 	validatorPeer := consensus.getValidatorPeerByID(validatorID)
-
 	if err := consensus.checkConsensusMessage(message, validatorPeer.PubKey); err != nil {
 		utils.GetLogInstance().Debug("Failed to check the validator message", "validatorID", validatorID)
 		return
